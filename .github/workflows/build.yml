@@ -1,15 +1,30 @@
-# This workflow will build a JavaScript Example
+name: NODE CONTINUOUS INTEGRATION
+# on: push es un evento que desencadena el flujo de trabajo cuando se realiza push a la rama del repositorio
+# en este casp puede ser (master o main) en la que se encuentra el archivo YML
 on: push
+# jobs: en este bloque define los trabajos que se ejecutarán como parte del flujo de trabajo
+# en este caso solo hay uno y es el first-job, pero pueden haber mas trabajos definidos.
 jobs:
-    first-job:
+    # first-job
+    # es el nombre del trabajo que se ejecutará, nota se pueden tener multiples flujos de trabajo
+    build-node:
+        name: Build and run a Node Application 
         # runs-on: windows-latest
-        runs-on: ubuntu-latest
-        container: node:16
+        runs-on: ubuntu-latest # especifíca el entorno en el que se ejecutará el trabajo, en este caso Ubuntu latest
+        container: node:16 # especifica el contenedor que se usará para ejecutar el trabajo, en este caso Node 16
         # container: node:17.6.0-alpine
-        steps:
+        steps: #se definen las tareas que se ejecutarán como parte del trabajo.
+        # cada paso reprenseta una tarea específica que se realizará en el entorno especificado.
             - run: node --version
+              name: Check the node version
             - run: npm --version 
+              name: Check the npm version
+        # Está acción se utiliza para que el flujo de trabajo pueda acceder al repositorio y verificar
+        # su contenido en el entorno de ejecución
             - uses: actions/checkout@v4
+              name: Checkout code from Github 
             - run: npm install 
+              name: Install NPM packages
             - run: node app.js 
+              name: Run Node Application
 
