@@ -4,6 +4,7 @@ jobs:
     first-job:
         # runs-on: windows-latest
         runs-on: ubuntu-latest
+        container: node:17.6.0-alpine
         steps:
             - run: node --version
             - run: npm --version 
